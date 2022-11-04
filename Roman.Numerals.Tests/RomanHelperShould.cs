@@ -25,10 +25,14 @@ public class RomanHelperShould
     [InlineData(1000, "M")]
     [InlineData(2000, "MM")]
     [InlineData(2432, "MMCDXXXII")]
+    [InlineData(3999, "MMMCMXCIX")]
     public void Convert(int value, string romanNumber)
     {
+        // Arrange
+        string result = string.Empty;
+        
         // Act
-        string result = RomanHelper.Convert(value);
+        result = RomanHelper.Convert(value);
 
         // Assert
         result.Should().Be(romanNumber);
