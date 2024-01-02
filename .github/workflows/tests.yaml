@@ -13,7 +13,12 @@ jobs:
   
         # Information about the repository and branch
         - run: echo "The name of your branch is ${{github.ref}} and your repository is ${{github.repository}}."
-        
+
+        # Conditional step when the event name is pull request
+        - name: Conditional step when the event name is pull request
+          if: ${{github.event_name == 'pull_request'}}
+          run: echo "This event is a pull request"
+
         # Use Actions located in https://github.com/actions
         - uses: actions/checkout@v2
         - name: Setup .NET
