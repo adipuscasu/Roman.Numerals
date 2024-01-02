@@ -1,0 +1,38 @@
+name: XUnit Tests
+on: [push, pull_request, release]
+jobs:
+  RunTests:
+    name: Runs XUnit Tests
+    runs-on: ubuntu-latest
+    steps:
+        # Display the event that triggered the workflow
+        - run: echo "The job was triggered by a ${{github.event_name}} event"
+  
+        # Runner information
+        - run: echo "This job is now running on a ${{runner.os}} server hosted by GitHub"
+  
+        # Information about the repository and branch
+        - run: echo "The name of your branch is ${{github.ref}} and your repository is ${{github.repository}}."
+
+        # Conditional step when the event name is pull request
+        - name: Conditional step when the event name is pull request
+          if: ${{github.event_name == 'pull_request'}}
+          run: echo "This event is a pull request"
+
+        # Use Actions located in https://github.com/actions
+        - uses: actions/checkout@v2
+        - name: Setup .NET
+          uses: actions/setup-dotnet@v1
+          with:
+            dotnet-version: 8.x
+
+        # Show .NET version
+        - name: Display dotnet version
+          run: dotnet --version
+
+        - name: Restore dependencies
+          run: dotnet restore
+        - name: Build
+          run: dotnet build --no-restore
+        - name: Test
+          run: dotnet test --no-build --verbosity normal
