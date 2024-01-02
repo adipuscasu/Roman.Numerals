@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         # Display the event that triggered the workflow
-        - run: echo "The job was triggered by a ${{github.event}} event"
+        - run: echo "The job was triggered by a ${{github.event_name}} event"
   
         # Runner information
         - run: echo "This job is now running on a ${{runner.os}} server hosted by GitHub"
